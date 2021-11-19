@@ -1,4 +1,8 @@
-# JAVASCRIPT
+# -----------------------------------> JAVASCRIPT <-------------------------------
+
+### O JAVASCRIPT é uma linguagem baseada em protótipo em que tudo nela é considerado objeto
+
+
 
 * ## Tipos de Variáveis
 
@@ -9,14 +13,19 @@
       * só funciona dentro de blocos de  códigos como métodos e condições conforme o caso
     * const : um tipo constante que mantém o valor fixo
   * Hoje em dia a var não é utilizada sendo substituída pela 'let'
+  * typeof (<variavel> ) : informa o tipo de dado que estamos trabalhando
 
   
 
-* ## Template String
-
   
 
-* ## Lista
+* ## Condições ternárias
+
+  * <condição>?<if-return> : <else-return>
+
+
+
+* ## Arrays, Listas e Prototype
 
   * const lista = new Array(  'elemento1',  'elemento2');
 
@@ -26,30 +35,148 @@
 
   * lista.splice(indice, qutd_item ) : remove um elemento
 
+  * concat(<array>) : junta dois arrays
+
+  * filter( <funcao-callback>) : filtra cada elemento através de uma função de call-back com uma determinada condição 
+
+  * find( <funcao-callback>): busca por apenas um elemento definido pela condição da função de callback
+
+  * findIndex(<funcao-callback>): semelhante ao find() mas retorna o índice do elemento
+
+  * lastIndexOf(<funcao-callback>): semelhante ao findIndex(), porém começa do ultimo elemento e não do primeiro
+
+  * array.slice(<indice-corte>,<final-corte>): divide um array
+
+  * array.slice(<indice-inicial>,<indice-new-elemento>,<elemento>): atualiza um elemento de um  array
+
+  * array1[array2] : modo de obter um array dentro do outro com 2 dimensões
+
+  * array.includes(<elemento>): verifica se há algum elemento dentro de um determinado array
+
+  * DOCUMENTAÇÃO (ARRAY.Proptotype) =  'https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/@@unscopables'
+
+    ```
+    arr.__proto__ : guarda todas as definições de funçoes de um array
+    ```
+  
+    
+  
+    
+  
     
 
-* ## Breakpoint e Debbuger
+## Métodos  CallBack
 
-  * Marcar o ponto no VS-Code  e acesar o guia bug
-  * No terminal verificar o DEBUG CONSOLE
+* ## ForEach
+
+  ```javascript
+  array.forEach(elemento => {
+  	console.log(elemento)
+  })
+  
+  saída(elemento)
+  ```
+
+* ## Map
+
+  ```javascript
+  array = [1,2,3,4]
+  array.map(elemento => elemento + 1)
+  
+  saída(2,3,4,5)
+  ```
+
+* ## Reduce
+
+  ```javascript
+  array = [1,2,3,4,5]
+  array.reduce( (acumulador, valor-atual) => valor-atual + acumulador, 0)
+  
+  saida(14)
+  ```
+  
+  
+
+* ## Funções e Objetos
+
+  Iniciaremos com a criação de um novo arquivo chamado ” clientePrototipo.js” e adicionando o código abaixo a ele, para definir construtores de objetos.
+
+  ```javascript
+  function Cliente (nome, cpf, email, saldo) {
+   this.nome = nome
+   this.cpf = cpf
+   this.email = email
+   this.saldo = saldo
+    this.depositar = function(valor){
+     this.saldo += valor
+   }
+  }
+  const andre = new Cliente("Andre", "12312312312", "andre@email.com", 100)
+  ```
+
+	   Agora vamos definir um construtor que utiliza o `Cliente` para gerar um novo tipo de cliente.
+
+```javascript
+function ClientePoupanca(nome, cpf, email, saldo, saldoPoup){
+ Cliente.call(this, nome, cpf, email, saldo)
+ this.saldoPoup = saldoPoup
+}
+const ju = new ClientePoupanca("Ju", "12312312312", "ju@email.com", 100, 200)
+```
+
+​		Agora vamos manipular o comportamento do protótipo do objeto `ClientePoupanca`, adicionando o código abaixo:
+
+```javascript
+ClientePoupanca.prototype.depositarPoup = function(valor){
+ this.saldoPoup += valor
+```
+
+​		Então podemos testar algumas propriedades e validar a ideia de cadeia de protótipos. Digite o seguinte:
+
+```javascript
+console.log(andre.hasOwnProperty("saldoPoup"))
+console.log(ju.hasOwnProperty("saldoPoup"))
+console.log(andre instanceof Cliente)
+console.log(typeof andre)
+console.log(typeof ju)
+console.log(ju instanceof ClientePoupanca)
+console.log(Function.prototype.isPrototypeOf(Cliente))
+console.log(Cliente.constructor === Function)
+```
+
+​		Na saída do console veremos que usando `.hasOwnProperty()`, a função “saldoPoup” só existe no objeto do tipo `ClientePoupanca`.
+
+​		Os objetos `andre` e `ju` são do tipo `object`, ou seja, ambos herdam do protótipo de object, que está associado a todo objeto criado no JavaScript.
 
 
 
-* ## DOM
-
-  * Acessar elementos no HTML e fazer a manipulação destes elementos.
-    * window - > document -> <html> -> <body> 
-  * document : reperesenta a página atual
-    * document.querySelector(' elemento') : Seleciona um elemento html
-    * document.querySelector('elemento ') .textContent : Seleciona o conteúdo de texto do elemento
-    * document.querySelector('elemento ') .textContent = "texto" : atribui um novo conteúdo de texto no elemento HTML
-  * EVENTOS
-    * elemento.addEventListener( 'evento', function() )
 
 
-# Regras de domínios do CORS
-
-* https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
+# Orientação a objetos
 
 
+
+```javascript
+class pessoa {
+    constructor(nome, idade, sexo){
+        this.nome = nome
+        this.idade = idade
+        this.sexo = sexo
+    }
+    
+    exibirNome(){
+        console.log(nome)
+    }
+}
+
+/* Conceito de Herança*/
+class Gerente extends Pessoa{
+    constructor(nome, idade, sexo, nome_loja){
+        super(nome, idade, sexo)
+        this.nome_loja = nome_loja
+    }
+}
+```
+
+​     
 
